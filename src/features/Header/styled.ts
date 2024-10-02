@@ -1,36 +1,27 @@
 import styled from 'styled-components';
 
-interface props {
-    visible: boolean;
-}
-
-const HeaderStyled = styled.div<props>`
+const HeaderStyled = styled.div<{ $visible: boolean }>`
     .headerWrap {
         border: 1px dashed #ccc;
         padding: 10px;
         height: 50px;
         width: 100%;
         position: fixed;
-      
-        transition: top 0.5s ease-in-out;
+
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        transform: ${({ $visible }) => ($visible ? 'translateY(0)' : 'translateY(-100%)')};
+        opacity: ${({ $visible }) => ($visible ? 1 : 0)};
+
         display: flex;
         justify-content: space-between;
         align-items: center;
         background-color: white;
-        .menuBtn{
-          cursor: pointer;
-        }
-        .menuBtn:hover{
-          color: red;
-        }
         .logo {
             font-weight: bolder;
-            div {
-              cursor: pointer;
-            }
-            div:hover {
-                color: red;
-            }
+            cursor: pointer;
+        }
+        .logo:hover {
+            color: red;
         }
         .navBtn {
             display: flex;
@@ -45,14 +36,6 @@ const HeaderStyled = styled.div<props>`
     }
     .headerWrap:hover {
         border: 1px dashed black;
-    }
-    .menuBar{
-        position: absolute;
-        border: 1px solid;
-        height: 100%;
-        width: 40%;
-        background-color: white;
-        color: black;
     }
 `;
 

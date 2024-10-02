@@ -2,6 +2,8 @@ import { nanoid } from 'nanoid';
 import PaymentComponentStyled from './styled';
 import { useEffect, useRef, useState } from 'react';
 import { loadPaymentWidget, PaymentWidgetInstance } from '@tosspayments/payment-widget-sdk';
+import { useSelector } from 'react-redux';
+import { RootState } from '@/redux/store';
 
 const clientKey = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 const customerKey = 'YbX2HuSlsC9uVJW6NMRMj';
@@ -10,6 +12,8 @@ const PaymentComponent = () => {
     const paymentWidgetRef = useRef<PaymentWidgetInstance | null>(null);
 
     const paymentMethodsWidgetRef = useRef<ReturnType<PaymentWidgetInstance['renderPaymentMethods']> | null>(null);
+
+    const user = useSelector((state: RootState) => state.user);
 
     // 결제 가격
     const [price, setPrice] = useState(35000);
@@ -58,16 +62,17 @@ const PaymentComponent = () => {
                         const paymentWidget = paymentWidgetRef.current;
 
                         try {
-                            await paymentWidget?.requestPayment({
-                                orderId: nanoid(),
+                            const response = await paymentWidget?.requestPayment({
+                                orderId: `ORD-${Date.now()}-${nanoid(8)}`,
                                 orderName: '결제상품 이름',
-                                customerName: '구매자 이름',
-                                customerEmail: '이메일',
+                                customerName: `${user.userInfo?.username}`,
+                                customerEmail: `${user.userInfo?.email}`,
                                 successUrl: `${window.location.origin}/payment/success`,
                                 failUrl: `${window.location.origin}/payment/fail`,
                             });
+                            console.log('결제 요청 결과: ', response);
                         } catch (error) {
-                            console.log(error, '결제 에러 발생');
+                            console.log('결제 에러 발생: ', error);
                         }
                     }}
                 >

@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 const SignUp = () => {
     const router = useRouter();
@@ -12,11 +13,16 @@ const SignUp = () => {
 
     const signUpFormik = useFormik({
         initialValues: {
+            username: '',
             email: '',
             password: '',
             passwordConfirm: '',
         },
         validationSchema: Yup.object({
+            username: Yup.string()
+                .min(2, '이름은 최소 2자 이상이어야 합니다.')
+                .matches(/^[가-힣a-zA-Z]+$/, '이름은 한글 또는 영문만 가능합니다.')
+                .required('이름을 입력하세요'),
             email: Yup.string()
                 .matches(
                     /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
@@ -37,6 +43,7 @@ const SignUp = () => {
         }),
         onSubmit: async (values) => {
             const newUser = {
+                username: values.username,
                 email: values.email,
                 password: values.password,
             };
@@ -47,6 +54,7 @@ const SignUp = () => {
             try {
                 const response = await axios.post('http://localhost:5000/api/user/signup', newUser);
                 console.log('회원가입 성공:', response.data);
+                toast.success('회원가입에 성공하였습니다.');
                 signUpFormik.resetForm();
                 router.push('/');
             } catch (error) {
@@ -65,6 +73,19 @@ const SignUp = () => {
                 <div className="signUpTitle">회원가입</div>
                 {errMsg && <div className="errMsg">{errMsg}</div>}
                 <form onSubmit={signUpFormik.handleSubmit} className="signUpBox">
+                    <div className="usernameBox">
+                        <label htmlFor="usernameInput">이름</label>
+                        <input
+                            placeholder="이름을 입력하세요"
+                            id="usernameInput"
+                            name="username"
+                            onChange={signUpFormik.handleChange}
+                            value={signUpFormik.values.username}
+                        />
+                        {signUpFormik.touched.username && signUpFormik.errors.username ? (
+                            <div className="usernameMsg">{signUpFormik.errors.username}</div>
+                        ) : null}
+                    </div>
                     <div className="emailBox">
                         <label htmlFor="emailInput">이메일</label>
                         <input

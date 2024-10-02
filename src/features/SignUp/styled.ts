@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const SignUpStyled = styled.div`
     .signUpWrap {
         padding-top: 50px;
-        margin: 20px;
+        /* margin: 20px; */
         text-align: center;
         display: flex;
         flex-direction: column;
@@ -11,6 +11,7 @@ const SignUpStyled = styled.div`
         .signUpTitle {
             font-size: 2rem;
             font-weight: bolder;
+            margin-top: 10px;
         }
         .errMsg{
           color: red;
@@ -24,6 +25,19 @@ const SignUpStyled = styled.div`
             display: flex;
             flex-direction: column;
             text-align: start;
+            .usernameBox{
+              display: flex;
+                flex-direction: column;
+                font-size: 10px;
+                font-weight: bolder;
+                input {
+                    padding: 10px;
+                }
+                .usernameMsg {
+                    font-size: small;
+                    color: red;
+                }
+            }
             .emailBox {
                 display: flex;
                 flex-direction: column;

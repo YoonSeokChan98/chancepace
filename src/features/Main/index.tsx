@@ -1,6 +1,7 @@
 // import MapComponent from '@/components/MapComponent';
 import PaymentComponent from '@/components/PaymentComponent';
 import MainStyled from './styled';
+// import ToastUiComponent from '@/components/ToastUiComponent';
 // import Swipercomponent from '@/components/SwiperComponent';
 
 const Main = () => {
@@ -10,7 +11,8 @@ const Main = () => {
                 <div>메인페이지</div>
                 <div>
                     {/* <Swipercomponent /> */}
-                    {/* <PaymentComponent /> */}
+                    <PaymentComponent />
+                    {/* <ToastUiComponent /> */}
                 </div>
             </div>
         </MainStyled>
