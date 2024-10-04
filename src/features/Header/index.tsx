@@ -149,7 +149,11 @@ const Header = () => {
                 </div>
                 <div className="navBtn">
                     {isLoggedIn ? (
-                        <div onClick={handleLogout}>로그아웃</div>
+                        <>
+                            <div onClick={()=>router.push('/toast-ui')}>알림창</div>
+                            <div onClick={()=>router.push('/payment')}>토스페이먼츠</div>
+                            <div onClick={handleLogout}>로그아웃</div>
+                        </>
                     ) : (
                         <>
                             <div onClick={() => router.push('/signup')}>회원가입</div>

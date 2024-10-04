@@ -16,8 +16,8 @@ const Login = () => {
 
     const loginFormik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            email: 'tester@example.com',
+            password: '!test1234',
         },
         onSubmit: async (values) => {
             const loginUser = {

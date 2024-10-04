@@ -8,10 +8,11 @@ const Main = () => {
     return (
         <MainStyled>
             <div className="mainWrap">
-                <div>메인페이지</div>
+                <div className='mainTitle'>메인페이지</div>
+                <div className='mainExplain'>어서오세요 토스결제 및 toast 알림창 테스트입니다.</div>
                 <div>
                     {/* <Swipercomponent /> */}
-                    <PaymentComponent />
+                    {/* <PaymentComponent /> */}
                     {/* <ToastUiComponent /> */}
                 </div>
             </div>

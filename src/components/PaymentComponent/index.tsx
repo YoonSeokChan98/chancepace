@@ -44,40 +44,42 @@ const PaymentComponent = () => {
     return (
         <PaymentComponentStyled>
             <div className="paymentWrap">
-                <div>결제창입니다.</div>
-                {/* 결제 UI */}
-                <div id="payment-widget"></div>
-                <div id="agreement"></div>
-                <div>
-                    <input
-                        type="checkbox"
-                        onChange={(e) => {
-                            setPrice(e.target.checked ? price - 5000 : price);
-                        }}
-                    />
-                    <label>5,000원 할인 쿠폰 적용</label>
-                </div>
-                <button
-                    onClick={async () => {
-                        const paymentWidget = paymentWidgetRef.current;
+                <div className='paymentBox'>
+                    <div className='paymentTitle'>결제창입니다.</div>
+                    {/* 결제 UI */}
+                    <div id="payment-widget"></div>
+                    <div id="agreement"></div>
+                    <div>
+                        <input
+                            type="checkbox"
+                            onChange={(e) => {
+                                setPrice(e.target.checked ? price - 5000 : price);
+                            }}
+                        />
+                        <label>5,000원 할인 쿠폰 적용</label>
+                    </div>
+                    <button
+                        onClick={async () => {
+                            const paymentWidget = paymentWidgetRef.current;
 
-                        try {
-                            const response = await paymentWidget?.requestPayment({
-                                orderId: `ORD-${Date.now()}-${nanoid(8)}`,
-                                orderName: '결제상품 이름',
-                                customerName: `${user.userInfo?.username}`,
-                                customerEmail: `${user.userInfo?.email}`,
-                                successUrl: `${window.location.origin}/payment/success`,
-                                failUrl: `${window.location.origin}/payment/fail`,
-                            });
-                            console.log('결제 요청 결과: ', response);
-                        } catch (error) {
-                            console.log('결제 에러 발생: ', error);
-                        }
-                    }}
-                >
-                    결제하기
-                </button>
+                            try {
+                                const response = await paymentWidget?.requestPayment({
+                                    orderId: `ORD-${Date.now()}-${nanoid(8)}`,
+                                    orderName: '결제상품 이름',
+                                    customerName: `${user.userInfo?.username}`,
+                                    customerEmail: `${user.userInfo?.email}`,
+                                    successUrl: `${window.location.origin}/payment/success`,
+                                    failUrl: `${window.location.origin}/payment/fail`,
+                                });
+                                console.log('결제 요청 결과: ', response);
+                            } catch (error) {
+                                console.log('결제 에러 발생: ', error);
+                            }
+                        }}
+                    >
+                        결제하기
+                    </button>
+                </div>
             </div>
         </PaymentComponentStyled>
     );

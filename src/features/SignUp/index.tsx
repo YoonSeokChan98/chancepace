@@ -13,10 +13,10 @@ const SignUp = () => {
 
     const signUpFormik = useFormik({
         initialValues: {
-            username: '',
-            email: '',
-            password: '',
-            passwordConfirm: '',
+            username: '테스터',
+            email: 'tester@example.com',
+            password: '!test1234',
+            passwordConfirm: '!test1234',
         },
         validationSchema: Yup.object({
             username: Yup.string()
@@ -60,6 +60,13 @@ const SignUp = () => {
             } catch (error) {
                 console.error('회원가입 실패:', error);
                 setErrMsg('회원가입 실패');
+                if (axios.isAxiosError(error)) {
+                    const statusCode = error.response?.status;
+                    // console.log('statusCode',statusCode);
+                    if (statusCode === 400) {
+                      toast.error('이미 가입된 회원입니다.')
+                    }
+                }
             } finally {
                 setLoading(false);
             }

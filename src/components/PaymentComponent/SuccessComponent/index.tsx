@@ -10,10 +10,10 @@ const SuccessComponent = () => {
     const searchParams = router.query;
     console.log('결제 성공', searchParams);
     const user = useSelector((state: RootState) => state.user);
- console.log(user,'kjgkjgkg');
+    console.log(user, 'kjgkjgkg');
 
     return (
-        <SuccessStyled>k
+        <SuccessStyled>
             <div className="successWrap">
                 <div>결제 성공</div>
                 <div>{`주문 아이디: ${searchParams.orderId}`}</div>
